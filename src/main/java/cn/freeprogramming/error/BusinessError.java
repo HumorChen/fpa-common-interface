@@ -2,10 +2,11 @@ package cn.freeprogramming.error;
 
 import cn.freeprogramming.enums.CommonErrorEnums;
 import cn.freeprogramming.interfaces.IErrorEntity;
-import lombok.AllArgsConstructor;
+import cn.hutool.core.util.EnumUtil;
 import lombok.Data;
 import lombok.Getter;
 import lombok.ToString;
+import org.apache.dubbo.rpc.RpcException;
 
 /**
  * 业务错误实体类（自己业务需要则用该类创建一个错误）
@@ -15,10 +16,9 @@ import lombok.ToString;
  */
 @ToString
 @Data
-@Getter
-public class BusinessError extends RuntimeException implements IErrorEntity {
-    private Integer code;
-    private String message;
+public class BusinessError extends RpcException implements IErrorEntity {
+    private String errorCode;
+    private String errorMessage;
 
     /**
      * 不需要错误代码的构造方法
@@ -26,18 +26,16 @@ public class BusinessError extends RuntimeException implements IErrorEntity {
      * @param message
      */
     public BusinessError(String message) {
-        this.code = CommonErrorEnums.BUSINESS_ERROR.getCode();
-        this.message = message;
+        this(CommonErrorEnums.BUSINESS_ERROR.name(), message);
     }
 
-    public BusinessError(Integer code, String message) {
-        this.code = code;
-        this.message = message;
+    public BusinessError(String errorCode, String errorMessage) {
+        this.errorCode = errorCode;
+        this.errorMessage = errorMessage;
     }
 
     public BusinessError(IErrorEntity errorEntity) {
-        this.code = errorEntity.getCode();
-        this.message = errorEntity.getMessage();
+        this(errorEntity.getClass().getSimpleName()+"-"+errorEntity.getErrorCode(), errorEntity.getErrorMessage());
     }
 
 }

@@ -45,7 +45,7 @@ public class R<T> implements IResponse {
     }
 
     public static R error(IErrorEntity errorEntity) {
-        return new R(errorEntity.getClass().getSimpleName()+"-"+errorEntity.getCode(), errorEntity.getMessage(), null);
+        return new R(errorEntity.getErrorCode(),errorEntity.getErrorMessage(),null);
     }
 
 

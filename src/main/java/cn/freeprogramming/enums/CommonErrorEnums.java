@@ -1,7 +1,6 @@
 package cn.freeprogramming.enums;
 
 import cn.freeprogramming.interfaces.IErrorEntity;
-import lombok.ToString;
 
 /**
  * 常用错误枚举（预先定义好的常用错误）
@@ -14,23 +13,23 @@ public enum CommonErrorEnums implements IErrorEntity {
     BUSINESS_ERROR(1, "业务处理错误"),
     ILLEGAL_ARGUMENT(2, "参数不合法"),
     NEED_LOGIN(3, "请先登录"),
+    ILLEGAL_REQUEST_BODY(4,"request body exception")
 
     ;
-    private Integer code;
-    private String message;
+    private String errorCode;
+    private String errorMessage;
 
     CommonErrorEnums(Integer code, String message) {
-        this.code = code;
-        this.message = message;
+        this.errorCode = code + "";
+        this.errorMessage = message;
     }
 
     @Override
-    public Integer getCode() {
-        return code;
+    public String getErrorCode() {
+        return errorCode;
     }
 
-    @Override
-    public String getMessage() {
-        return message;
+    public String getErrorMessage() {
+        return errorMessage;
     }
 }

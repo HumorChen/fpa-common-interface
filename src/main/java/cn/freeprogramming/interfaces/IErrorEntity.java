@@ -7,9 +7,9 @@ package cn.freeprogramming.interfaces;
  * @Date 2021/12/4
  */
 public interface IErrorEntity {
-    Integer getCode();
+    String getErrorCode();
 
-    String getMessage();
+    String getErrorMessage();
 
     String toString();
 }
